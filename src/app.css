@@ -1,0 +1,17 @@
+/* Write your global styles here, in PostCSS syntax */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-sans;
+}
+
+a {
+  @apply text-blue-600 hover:underline;
+}
+
+.error {
+  @apply text-red-700;
+}
