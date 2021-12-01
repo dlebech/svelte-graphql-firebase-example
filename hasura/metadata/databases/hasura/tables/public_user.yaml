@@ -1,0 +1,39 @@
+table:
+  name: user
+  schema: public
+array_relationships:
+- name: todos
+  using:
+    foreign_key_constraint_on:
+      column: user_id
+      table:
+        name: todo
+        schema: public
+insert_permissions:
+- permission:
+    backend_only: false
+    check:
+      id:
+        _eq: X-Hasura-User-Id
+    columns:
+    - id
+    - name
+  role: user
+select_permissions:
+- permission:
+    columns:
+    - id
+    - name
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user
+update_permissions:
+- permission:
+    check: null
+    columns:
+    - name
+    filter:
+      id:
+        _eq: X-Hasura-User-Id
+  role: user
