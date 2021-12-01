@@ -37,6 +37,7 @@
       console.log(e, e.code, e.message);
       errorMessage = errorCodeToErrorText(e);
     }
+    isLoading = false;
   }
 </script>
 

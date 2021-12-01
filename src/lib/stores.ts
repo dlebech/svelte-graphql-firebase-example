@@ -2,6 +2,8 @@ import { writable } from "svelte/store";
 import { initializeApp } from "firebase/app";
 import type { User } from "firebase/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { setClient } from 'svelte-apollo';
+import { initializeClient } from '$lib/utils/apollo';
 
 export const user = writable<User | null>(null);
 
@@ -24,9 +26,11 @@ initializeApp(firebaseConfig);
 // Subscribe to change in user
 const auth = getAuth();
 
-onAuthStateChanged(auth, (firebaseUser) => {
+onAuthStateChanged(auth, async (firebaseUser) => {
   if (firebaseUser) {
     user.set(firebaseUser);
+    const token = await firebaseUser.getIdToken();
+    initializeClient(token);
   } else {
     user.set(null);
   }

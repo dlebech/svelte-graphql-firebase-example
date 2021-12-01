@@ -1,0 +1,1 @@
+CREATE TABLE "public"."todo" ("id" serial NOT NULL, "user_id" text NOT NULL, "text" text NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), "completed_at" timestamptz, PRIMARY KEY ("id") , FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON UPDATE restrict ON DELETE cascade);

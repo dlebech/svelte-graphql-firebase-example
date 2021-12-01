@@ -4,6 +4,8 @@
   import Card from '$lib/components/elements/Card.svelte';
   import Button from '$lib/components/elements/Button.svelte';
   import { errorCodeToErrorText } from '$lib/utils/firebase';
+  import { gql } from '@apollo/client/core';
+  import { query } from '$lib/utils/apollo';
 
   let verificationError: string;
 
@@ -31,6 +33,23 @@
   }
 
   tokenStuff();
+
+  async function getUser() {
+    const q = gql`
+      query UserQuery {
+        user {
+          name
+        }
+      }
+    `;
+
+    const userQ = await query(q);
+    console.log(userQ);
+  }
+
+  setTimeout(() => {
+    getUser();
+  }, 1000);
 </script>
 
 <Card>
